@@ -1,7 +1,7 @@
 {
   "name": "mentor-closing-coach",
   "version": "1.0.0",
-  "private": true,
+  "private": true,"engines": {"node": "20.x"},
   "scripts": {
     "dev": "next dev",
     "build": "next build",
