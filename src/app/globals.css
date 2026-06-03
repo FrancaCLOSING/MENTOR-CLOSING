@@ -1,0 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #07070f;
+  --bg2: #0f0f1e;
+  --bg3: #16162a;
+  --bg4: #1e1e35;
+  --p: #7c6df0;
+  --p2: #a594f9;
+  --p3: #c8beff;
+  --pg: rgba(124, 109, 240, 0.13);
+  --gn: #00d2c8;
+  --gn2: #55edd8;
+  --gnb: rgba(0, 210, 200, 0.08);
+  --go: #f0c060;
+  --gob: rgba(240, 192, 96, 0.08);
+  --rd: #ff6b6b;
+  --rdb: rgba(255, 107, 107, 0.08);
+  --mu: #6868a0;
+  --mu2: #9090b8;
+  --b1: rgba(255, 255, 255, 0.06);
+  --b2: rgba(255, 255, 255, 0.11);
+}
+
+* { box-sizing: border-box; }
+html, body { height: 100%; overflow: hidden; }
+body { background: var(--bg); color: #eeeef8; font-family: 'DM Sans', sans-serif; }
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--bg4); border-radius: 3px; }
+
+.font-display { font-family: 'Syne', sans-serif; }
+
+/* Chat message animations */
+.msg-in { animation: fadeUp 0.2s ease; }
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Typing dots */
+.typing-dot { animation: pulseDot 1.2s infinite; }
+.typing-dot:nth-child(2) { animation-delay: 0.2s; }
+.typing-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes pulseDot {
+  0%, 80%, 100% { opacity: 0.3; transform: translateY(0); }
+  40% { opacity: 1; transform: translateY(-5px); }
+}
+
+/* Phrase box */
+.phrase-box {
+  background: var(--bg4);
+  border-left: 2px solid var(--p);
+  border-radius: 0 7px 7px 0;
+  padding: 10px 13px;
+  margin: 8px 0;
+  font-style: italic;
+  font-size: 13px;
+  line-height: 1.6;
+  color: #eeeef8;
+}
+
+/* Stop box */
+.stop-box {
+  background: var(--rdb);
+  border: 1px solid rgba(255, 107, 107, 0.2);
+  border-radius: 9px;
+  padding: 10px 13px;
+  margin: 7px 0;
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* Score card */
+.score-card {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 6px;
+  background: var(--bg4);
+  border-radius: 8px;
+  padding: 6px 12px;
+  margin: 5px 0;
+}
+
+/* Mic button recording state */
+.mic-recording {
+  animation: micPulse 1s infinite;
+}
+@keyframes micPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 107, 107, 0.4); }
+  50% { box-shadow: 0 0 0 8px rgba(255, 107, 107, 0); }
+}
