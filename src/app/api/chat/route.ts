@@ -1,13 +1,20 @@
 import { NextRequest } from 'next/server'
-import { getMemory, extractAndSaveErrors, saveDrillScore, markStepDone, saveSession } from '@/lib/supabase'
 import { buildSystemPrompt, buildFullCallPrompt } from '@/lib/curriculum'
+import { getMemory, extractAndSaveErrors, saveDrillScore, markStepDone, saveSession, saveConversation, updateSkill } from '@/lib/supabase'
 import type { Phase } from '@/lib/curriculum'
 
 export const maxDuration = 60
 
+// Map module/step to skill name for radar
+function getSkillName(moduleId: number, phase: Phase): string {
+  const map: Record<number, string> = { 0: 'psychologie', 1: 'decouverte', 2: 'prix', 3: 'objections' }
+  return map[moduleId] || 'general'
+}
+
 export async function POST(req: NextRequest) {
   const { messages, moduleId, stepId, phase, mode, personaIdx } = await req.json()
   const memory = await getMemory()
+
   const system = mode === 'fullcall'
     ? buildFullCallPrompt(personaIdx ?? 0, memory)
     : buildSystemPrompt(moduleId ?? 0, stepId ?? 0, phase as Phase, memory)
@@ -24,12 +31,12 @@ export async function POST(req: NextRequest) {
       max_tokens: 1500,
       stream: true,
       system,
-      messages: messages.slice(-14),
+      messages: messages.slice(-16),
     }),
   })
 
   if (!response.ok) {
-    const err = await response.json()
+    const err = await response.json().catch(() => ({}))
     return new Response(JSON.stringify(err), { status: response.status })
   }
 
@@ -64,28 +71,52 @@ export async function POST(req: NextRequest) {
       }
       controller.close()
 
-      // Post-processing
+      // ── Post-processing ──
       try {
         await extractAndSaveErrors(fullText)
-        const scoreMatch = fullText.match(/SCORE:\s*(\d+)\/10/i)
-        if (scoreMatch && phase === 'd' && moduleId != null && stepId != null) {
-          const score = parseInt(scoreMatch[1])
-          const scores = await saveDrillScore(`${moduleId}-${stepId}`, score)
-          await saveSession({ type: 'drill', module_id: moduleId, step_id: stepId, score, duration_seconds: null, notes: null })
-          const last2 = scores.slice(-2)
-          if (last2.length === 2 && last2.every(s => s >= 8)) await markStepDone(`${moduleId}-${stepId}`)
+
+        // Save conversation history for resuming
+        if (moduleId != null && stepId != null) {
+          const stepKey = `${moduleId}-${stepId}`
+          const allMsgs = [...messages, { role: 'assistant', content: fullText }]
+          await saveConversation(stepKey, allMsgs)
         }
+
+        // Score parsing
+        const scoreMatch = fullText.match(/SCORE:\s*(\d+)\/10/i)
+        if (scoreMatch) {
+          const score = parseInt(scoreMatch[1])
+
+          // Update skill radar
+          if (moduleId != null) {
+            await updateSkill(getSkillName(moduleId, phase as Phase), score)
+          }
+
+          if (phase === 'd' && moduleId != null && stepId != null) {
+            const scores = await saveDrillScore(`${moduleId}-${stepId}`, score)
+            await saveSession({ type: 'drill', module_id: moduleId, step_id: stepId, score, duration_seconds: null, notes: null })
+            const last2 = scores.slice(-2)
+            if (last2.length === 2 && last2.every(s => s >= 8)) {
+              await markStepDone(`${moduleId}-${stepId}`)
+            }
+          }
+        }
+
+        // Step validation tag
         if (fullText.includes('[ÉTAPE-VALIDÉE]') && moduleId != null && stepId != null) {
           await markStepDone(`${moduleId}-${stepId}`)
+          const score = scoreMatch ? parseInt(scoreMatch[1]) : null
+          await saveSession({
+            type: phase === 'r' ? 'roleplay' : 'learn',
+            module_id: moduleId, step_id: stepId,
+            score, duration_seconds: null, notes: null
+          })
         }
-      } catch (e) { console.error(e) }
+      } catch (e) { console.error('Post-processing error:', e) }
     }
   })
 
   return new Response(stream, {
-    headers: {
-      'Content-Type': 'text/plain; charset=utf-8',
-      'Cache-Control': 'no-cache',
-    }
+    headers: { 'Content-Type': 'text/plain; charset=utf-8', 'Cache-Control': 'no-cache' }
   })
 }

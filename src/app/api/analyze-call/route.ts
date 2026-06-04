@@ -42,7 +42,7 @@ Retourne UNIQUEMENT ce JSON valide :
 
   try {
     const response = await anthropic.messages.create({
-      model: 'claude-sonnet-4-5',
+      model: 'claude-sonnet-4-20250514',
       max_tokens: 3000,
       system,
       messages: [{ role: 'user', content: `Transcript:\n${transcript}${context ? '\nContexte: ' + context : ''}` }],
