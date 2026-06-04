@@ -30,7 +30,7 @@ function Bubble({ content }: { content: string }) {
     t = t.replace(/^> "(.+)"$/gm, '<div class="phrase-box">"$1"</div>')
     t = t.replace(/^> (.+)$/gm, '<div class="phrase-box">$1</div>')
     t = t.replace(/^[-•] (.+)$/gm, '<li class="ml-4 text-[var(--mu2)] mb-1">$1</li>')
-    t = t.replace(/(<li[^>]*>.*?<\/li>)/gs, m => `<ul class="my-2">${m}</ul>`)
+    t = t.replace(/(<li[^>]*>[\s\S]*?<\/li>)/g, m => `<ul class="my-2">${m}</ul>`)
     t = t.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>')
     return t
   }
@@ -814,4 +814,3 @@ export default function App() {
     </div>
   )
 }
-
