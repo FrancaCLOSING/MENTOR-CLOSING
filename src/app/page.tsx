@@ -33,10 +33,10 @@ function MentorMessage({ content }: { content: string }) {
     t = t.replace(/^> "(.+)"$/gm, '<div class="my-3 bg-[var(--bg4)] border-l-[3px] border-[var(--p)] rounded-r-xl px-4 py-3 text-sm italic text-[#eeeef8] leading-relaxed font-medium">"$1"</div>')
     t = t.replace(/^> (.+)$/gm, '<div class="my-3 bg-[var(--bg4)] border-l-[3px] border-[var(--p)] rounded-r-xl px-4 py-3 text-sm leading-relaxed">$1</div>')
     t = t.replace(/^[-•] (.+)$/gm, '<li class="ml-5 text-[var(--mu2)] mb-1.5 text-sm">$1</li>')
-    t = t.replace(/(<li[^>]*>[\\s\\S]*?<\\/li>)/g, m => `<ul class="my-2 space-y-1">${m}</ul>`)
+    t = t.replace(/(<li[^>]*>[\s\S]*?<\/li>)/g, m => `<ul class="my-2 space-y-1">${m}</ul>`)
     t = t.replace(/`([^`]+)`/g, '<code class="bg-[var(--bg4)] text-[var(--p3)] px-1.5 py-0.5 rounded text-xs font-mono">$1</code>')
-    t = t.replace(/\\n\\n/g, '</p><p class="mb-3">').replace(/\\n/g, '<br/>')
-    return `<p class="mb-3">${t}</p>`
+    t = t.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>')
+    return t
   }
   return (
     <div className="text-sm leading-relaxed text-[#eeeef8]"
