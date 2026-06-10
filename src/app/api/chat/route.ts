@@ -12,7 +12,7 @@ function getSkillName(moduleId: number, phase: Phase): string {
 }
 
 export async function POST(req: NextRequest) {
-  const { messages, moduleId, stepId, phase, mode, personaIdx } = await req.json()
+  const { messages, moduleId, stepId, phase, mode, personaIdx, convKey } = await req.json()
   const memory = await getMemory()
 
   const system = mode === 'fullcall'
@@ -75,11 +75,10 @@ export async function POST(req: NextRequest) {
       try {
         await extractAndSaveErrors(fullText)
 
-        // Save conversation history for resuming
-        if (moduleId != null && stepId != null) {
-          const stepKey = `${moduleId}-${stepId}`
+        // Save conversation history for resuming (only learn mode resumes)
+        if (convKey && mode !== 'fullcall' && mode !== 'roleplay') {
           const allMsgs = [...messages, { role: 'assistant', content: fullText }]
-          await saveConversation(stepKey, allMsgs)
+          await saveConversation(convKey, allMsgs)
         }
 
         // Score parsing

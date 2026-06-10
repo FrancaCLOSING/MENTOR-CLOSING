@@ -170,10 +170,12 @@ function ChatPanel({ chatId, moduleId, stepId, phase, mode, personaIdx, quickAct
 
   useEffect(() => { bottomRef.current?.scrollIntoView({ behavior: 'smooth' }) }, [msgs])
 
+  const convKey = `${mode??'learn'}-${moduleId}-${stepId}`
+
   async function loadOrStart() {
     if (mode === 'fullcall' || mode === 'roleplay') { startFresh(); return }
     try {
-      const r = await fetch(`/api/conversation?key=${moduleId}-${stepId}`)
+      const r = await fetch(`/api/conversation?key=${convKey}`)
       const d = await r.json()
       if (d.messages && d.messages.length > 1) { setMsgs(d.messages); setResumed(true); return }
     } catch {}
@@ -200,7 +202,7 @@ function ChatPanel({ chatId, moduleId, stepId, phase, mode, personaIdx, quickAct
     try {
       const res = await fetch('/api/chat', {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: allMsgs, moduleId, stepId, phase, mode: mode??'learn', personaIdx }),
+        body: JSON.stringify({ messages: allMsgs, moduleId, stepId, phase, mode: mode??'learn', personaIdx, convKey }),
         signal: abortRef.current?.signal,
       })
       if (!res.body) return
@@ -223,7 +225,7 @@ function ChatPanel({ chatId, moduleId, stepId, phase, mode, personaIdx, quickAct
   }
 
   async function restart() {
-    await fetch(`/api/conversation?key=${moduleId}-${stepId}`, { method:'DELETE' })
+    await fetch(`/api/conversation?key=${convKey}`, { method:'DELETE' })
     setMsgs([]); setResumed(false); abortRef.current = new AbortController(); startFresh()
   }
 
