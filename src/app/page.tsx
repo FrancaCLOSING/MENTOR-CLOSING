@@ -300,54 +300,54 @@ function ChatPanel({ chatId, moduleId, stepId, phase, mode, personaIdx, quickAct
 function Reference() {
   const sections = [
     {
-      title: '📐 Structure VDI²',
-      color: 'var(--p)',
+      title: `📐 Structure VDI²`,
+      color: `var(--p)`,
       items: [
-        { label: 'V — Vision', desc: 'Où elle veut aller. "Dans ta tête, quand tu imagines la version de toi qui a atteint ça — elle vit comment au quotidien ?"' },
-        { label: 'D — Douleur', desc: 'Pourquoi maintenant. 3 niveaux : Logique → Émotionnel → Identitaire' },
-        { label: 'I — Identité', desc: 'Qui elle veut devenir. "Est-ce que tu es prête à devenir la femme qui a ce corps ?"' },
-        { label: '² — Inaction', desc: 'Le coût du statu quo. "Dans 5 ans si rien ne change..."' },
+        { label: `V — Vision`, desc: `Où elle veut aller. "Dans ta tête, quand tu imagines la version de toi qui a atteint ça — elle vit comment ?"` },
+        { label: `D — Douleur`, desc: `Pourquoi maintenant. 3 niveaux : Logique → Émotionnel → Identitaire` },
+        { label: `I — Identité`, desc: `Qui elle veut devenir. "Est-ce que tu es prête à devenir la femme qui a ce corps ?"` },
+        { label: `² — Inaction`, desc: `Le coût du statu quo. "Dans 5 ans si rien ne change..."` },
       ]
     },
     {
-      title: '🛡️ Framework AVIR',
-      color: 'var(--gn)',
+      title: `🛡️ Framework AVIR`,
+      color: `var(--gn)`,
       items: [
-        { label: 'A — Accueillir', desc: '"Ok, j'entends parfaitement. Aucun souci avec ça."' },
-        { label: 'V — Véhicule', desc: '"Si on met [objection] de côté 2 secondes — est-ce que tu le ferais ?"' },
-        { label: 'I — Isoler', desc: '"Quand tu me dis ça... qu'est-ce que tu veux dire exactement ?"' },
-        { label: 'R — Reframer', desc: 'Utiliser le bon frame selon l'objection réelle' },
+        { label: `A — Accueillir`, desc: `"Ok, j'entends parfaitement. Aucun souci avec ça."` },
+        { label: `V — Véhicule`, desc: `"Si on met [objection] de côté 2 secondes — est-ce que tu le ferais ?"` },
+        { label: `I — Isoler`, desc: `"Quand tu me dis ça... qu'est-ce que tu veux dire exactement ?"` },
+        { label: `R — Reframer`, desc: `Utiliser le bon frame selon l'objection réelle` },
       ]
     },
     {
-      title: '🔥 Les 11 Frames',
-      color: 'var(--go)',
+      title: `🔥 Les 11 Frames`,
+      color: `var(--go)`,
       items: [
-        { label: 'F1 — Risque', desc: '"Qu'est-ce qui est le plus risqué — agir ou ne rien faire ?"' },
-        { label: 'F2 — Île déserte', desc: '"On décide depuis où on est, pas depuis où on veut aller"' },
-        { label: 'F3 — Problème/Symptôme', desc: '"Le vrai sujet ce n'est pas [objection], c'est [racine]"' },
-        { label: 'F4 — Certitude', desc: '"Est-ce que tu connais quelqu'un qui décide avec 100% de certitude ?"' },
-        { label: 'F5 — Confort/Inconfort', desc: '"Les décisions confortables te gardent exactement là où tu es"' },
-        { label: 'F6 — Miroir 5 ans', desc: '"Dans 5 ans si rien ne change..."' },
-        { label: 'F7 — Identité', desc: '"Tu veux devenir quelqu'un, pas juste avoir quelque chose"' },
-        { label: 'F8 — Argent outil', desc: '"L'argent n'est pas une contrainte — c'est l'outil qui va t'y amener"' },
-        { label: 'F9 — Zone de confort', desc: '"Rester dans ta zone de confort a un coût invisible"' },
-        { label: 'F10 — Temps/Argent', desc: '"L'argent se récupère. Le temps passé mal dans son corps, jamais."' },
-        { label: 'F11 — Pourquoi pas moi', desc: '"Les autres n'ont pas de superpouvoirs — elles ont le bon mindset"' },
+        { label: `F1 — Risque`, desc: `"Qu'est-ce qui est le plus risqué — agir ou ne rien faire ?"` },
+        { label: `F2 — Île déserte`, desc: `"On décide depuis où on est, pas depuis où on veut aller"` },
+        { label: `F3 — Problème/Symptôme`, desc: `"Le vrai sujet ce n'est pas [objection], c'est [racine]"` },
+        { label: `F4 — Certitude`, desc: `"Est-ce que tu connais quelqu'un qui décide avec 100% de certitude ?"` },
+        { label: `F5 — Confort/Inconfort`, desc: `"Les décisions confortables te gardent là où tu es"` },
+        { label: `F6 — Miroir 5 ans`, desc: `"Dans 5 ans si rien ne change..."` },
+        { label: `F7 — Identité`, desc: `"Tu veux devenir quelqu'un, pas juste avoir quelque chose"` },
+        { label: `F8 — Argent outil`, desc: `"L'argent n'est pas une contrainte — c'est l'outil qui va t'y amener"` },
+        { label: `F9 — Zone de confort`, desc: `"Rester dans ta zone de confort a un coût invisible"` },
+        { label: `F10 — Temps/Argent`, desc: `"L'argent se récupère. Le temps passé mal dans son corps, jamais."` },
+        { label: `F11 — Pourquoi pas moi`, desc: `"Les autres n'ont pas de superpouvoirs — elles ont le bon mindset"` },
       ]
     },
     {
-      title: '🧠 Pain Funnel (3 niveaux)',
-      color: 'var(--rd)',
+      title: `🧠 Pain Funnel (3 niveaux)`,
+      color: `var(--rd)`,
       items: [
-        { label: 'N1 — Logique', desc: '"C'est quoi concrètement le problème aujourd'hui ?"' },
-        { label: 'N2 — Émotionnel', desc: '"Et ça t'impacte comment au quotidien ?"' },
-        { label: 'N3 — Identitaire', desc: '"Et quand tu te regardes dans le miroir, ça te dit quoi sur toi ?"' },
+        { label: `N1 — Logique`, desc: `"C'est quoi concrètement le problème aujourd'hui ?"` },
+        { label: `N2 — Émotionnel`, desc: `"Et ça t'impacte comment au quotidien ?"` },
+        { label: `N3 — Identitaire`, desc: `"Et quand tu te regardes dans le miroir, ça te dit quoi sur toi ?"` },
       ]
     },
     {
-      title: '👥 Personas (difficulté croissante)',
-      color: 'var(--p2)',
+      title: `👥 Personas (difficulté croissante)`,
+      color: `var(--p2)`,
       items: PERSONAS.map(p => ({ label: `${p.e} ${p.n} — Niveau ${p.d}/5`, desc: `${p.desc} | Objection : ${p.obj}` }))
     }
   ]
@@ -356,7 +356,7 @@ function Reference() {
     <div className="flex-1 overflow-y-auto p-6">
       <div className="max-w-[760px] mx-auto">
         <h1 className="font-display font-black text-2xl mb-2">📖 Référence rapide</h1>
-        <p className="text-sm text-[var(--mu)] mb-8">Tous les frameworks et phrases clés — consultables en 2 secondes pendant ou avant un call.</p>
+        <p className="text-sm text-[var(--mu)] mb-8">Tous les frameworks et phrases clés — consultables en 2 secondes.</p>
         {sections.map((s, si) => (
           <div key={si} className="mb-8">
             <div className="flex items-center gap-3 mb-4">
@@ -520,7 +520,7 @@ export default function App() {
     c: [
       { l:'🔄 Autre explication', m:'Réexplique avec un angle différent ou une métaphore.' },
       { l:'💡 Exemple concret', m:'Donne un autre exemple concret dans la niche.' },
-      { l:'✅ Compris, passe', m:'[VALIDER-ÉTAPE] J\\'ai compris ce concept en profondeur.' },
+      { l:'✅ Compris, passe', m:'[VALIDER-ÉTAPE] J\'ai compris ce concept en profondeur.' },
     ],
     d: [
       { l:'🔁 Recommencer', m:'Recommence le drill, donne-moi la phrase modèle.' },
